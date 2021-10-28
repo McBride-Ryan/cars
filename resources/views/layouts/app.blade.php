@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <title>app</title>
+    <title>My Cars App</title>
 </head>
 <body class="bg-gradient-to-r from-gray-100 to bg-gray-400">
     @yield('content')
