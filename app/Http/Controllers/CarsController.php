@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Product;
+use App\Rules\Uppercase;
 
 class CarsController extends Controller
 {
@@ -41,15 +43,16 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        // In index.blade.php we did something that granted a token for each session. 
+        
+        $request->validate([
+            'name' => 'required|unique:cars',
+            'founded' =>'required|integer|min:0|max:2021',
+            'description'=>'required'
+        ]);
+
         // Now we can use that to store our data
         // Don't forget the save method =]
-        // $car = new Car;
-        // $car->name = $request->input('name');
-        // $car->founded = $request->input('founded');
-        // $car->description = $request->input('description');
-        // $car->save();
-
+        // In index.blade.php we did something that granted a token for each session. 
         $car = Car::create([
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
@@ -69,7 +72,6 @@ class CarsController extends Controller
     {
         //
         $car = Car::find($id);
-
         return view('cars.show')->with('car', $car);
     }
 
