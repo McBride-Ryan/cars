@@ -25,4 +25,5 @@ class CarModel extends Model
             'model_id'
         );
     }
+    
 }

@@ -3,8 +3,14 @@
 @section('content')
 <div class="m-auto w-4/5 py-24">
     <div class="text-center">
+        {{-- Image --}}
+        <img 
+            src="{{ asset('images/' . $car->image_path) }}" 
+            alt="">
+
+        {{-- Car Name --}}
         <h1 class="text-5xl uppercase bold">
-            {{ $car->name }}
+            <a href="/cars">{{ $car->name }}</a>
         </h1>
     </div>
     <div class="text-center py-10">
@@ -44,7 +50,11 @@
                             @endforeach
                         </td>
                         <td class="border-4 border-gray-500">
-                            {{ date('d-m-Y', strtotime($model->productionDate->created_at)) }}
+                            @foreach ($car->productionDate as $pd )
+                                            @if ($model->id == $pd->model_id )
+                                            {{ date('Y', strtotime($pd->created_at)) }}
+                                            @endif 
+                            @endforeach
                         </td>
                     </tr>
                 @empty

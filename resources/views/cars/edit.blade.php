@@ -29,11 +29,12 @@
                 value="{{ $car->founded }}">
 
                 {{-- Description --}}
-                <input 
+                <textarea 
                 type="text" 
                 class="block shadow-5xl mb-10 p-2 w-80 italic"
                 name="description"
-                value="{{ $car->description }}">
+                rows="5" 
+                cols="80">{{ $car->description }}</textarea>
 
                 {{-- Button remember the type =] --}}
                 <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 block shadow-5xl mb-10 p-2 w-80 uppercase font-bold">

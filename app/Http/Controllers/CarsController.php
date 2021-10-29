@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Product;
-use App\Rules\Uppercase;
+
+
 
 class CarsController extends Controller
 {
@@ -43,12 +44,24 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
-            'name' => 'required|unique:cars',
-            'founded' =>'required|integer|min:0|max:2021',
-            'description'=>'required'
+            'name' => 'required',
+            'founded' => 'required|integer|min:0|max:2021',
+            'description' => 'required',
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
+
+        $newImageName = time().'-'.$request->name . '.'.$request->image->extension();
+
+        $request->image->move(public_path('images'), $newImageName);
+
+
+        // $request->validate([
+        //     'name' => 'required|unique:cars',
+        //     'founded' =>'required|integer|min:0|max:2021',
+        //     'description'=>'required',
+        //     'image'
+        // ]);
 
         // Now we can use that to store our data
         // Don't forget the save method =]
@@ -56,7 +69,8 @@ class CarsController extends Controller
         $car = Car::create([
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'image_path' => $newImageName
         ]);
 
         return redirect('/cars');
