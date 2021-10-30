@@ -10,6 +10,10 @@ use App\Models\Product;
 
 class CarsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +74,8 @@ class CarsController extends Controller
             'name' => $request->input('name'),
             'founded' => $request->input('founded'),
             'description' => $request->input('description'),
-            'image_path' => $newImageName
+            'image_path' => $newImageName,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect('/cars');
